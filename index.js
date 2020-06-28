@@ -27,11 +27,11 @@ const getWeather = () => {
     )
     .then(({ data }) => {
       const message = `
-Погода: ${data.weather[0].description}
+*Погода* 
 
+${data.weather[0].description}
 Температура: ${Math.floor(data.main.temp)}
 Ощущается как: ${Math.floor(data.main.feels_like)}
-
 Влажность: ${data.main.humidity}%
 `;
 
@@ -70,14 +70,15 @@ bot.start((ctx) => {
   // const weather = getWeather();
 
   const date = new Date();
-  const dateResult = `${date.getDate()}.${date.getMonth()}`;
-  let result = `**Доброе утро, кожаный мешок** 👾 \nСегодня ${dateResult} \n\n`;
+  let result = `*Доброе утро, кожаный мешок* 👾 \nСегодня ${date.getDate()} ${
+    monthesLocale[date.getMonth()]
+  } \n`;
 
   getWeather().then((weather) => {
     result += weather;
 
     getNews().then((news) => {
-      let newsStr = "\n\nА вот и лучшие материалы с ДТФ на это утро: \n";
+      let newsStr = "\nА вот и лучшие материалы с ДТФ на данный момент: \n";
 
       news.forEach((item) => {
         newsStr += `\n [${item.title}](${item.url})`;
