@@ -1,5 +1,6 @@
 const { Telegraf } = require("telegraf");
 const axios = require("axios");
+var cron = require("node-cron");
 
 const token = "1114449845:AAEru3S7ZO_sZssM9BQ_3FX9UgkMhwFlUv8";
 const openWeatherToken = "e4be0cd4a75788a1cee38dbb08118871";
@@ -62,6 +63,7 @@ const getNews = () => {
 };
 
 const bot = new Telegraf(token);
+
 bot.start((ctx) => {
   ctx.reply(
     "Привет, каждый день в 8 утра я буду присылать тебе три главных новости и прогноз погоды на сегодня. "
@@ -69,24 +71,26 @@ bot.start((ctx) => {
 
   // const weather = getWeather();
 
-  const date = new Date();
-  let result = `*Доброе утро, кожаный мешок* 👾 \nСегодня ${date.getDate()} ${
-    monthesLocale[date.getMonth()]
-  } \n`;
+  cron.schedule("0 8 * * *", () => {
+    const date = new Date();
+    let result = `*Доброе утро, кожаный мешок* 👾 \nСегодня ${date.getDate()} ${
+      monthesLocale[date.getMonth()]
+    } \n`;
 
-  getWeather().then((weather) => {
-    result += weather;
+    getWeather().then((weather) => {
+      result += weather;
 
-    getNews().then((news) => {
-      let newsStr = "\nА вот и лучшие материалы с ДТФ на данный момент: \n";
+      getNews().then((news) => {
+        let newsStr = "\nА вот и лучшие материалы с ДТФ на данный момент: \n";
 
-      news.forEach((item) => {
-        newsStr += `\n [${item.title}](${item.url})`;
+        news.forEach((item) => {
+          newsStr += `\n [${item.title}](${item.url})`;
+        });
+
+        result += newsStr;
+
+        ctx.replyWithMarkdown(result);
       });
-
-      result += newsStr;
-
-      ctx.replyWithMarkdown(result);
     });
   });
 });

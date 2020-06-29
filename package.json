@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "axios": "^0.19.2",
+    "node-cron": "^2.0.3",
     "nodemon": "^2.0.4",
     "telegraf": "^3.38.0"
   }
