@@ -4,5 +4,8 @@
     "node-cron": "^2.0.3",
     "nodemon": "^2.0.4",
     "telegraf": "^3.38.0"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }
