@@ -70,7 +70,7 @@ bot.start((ctx) => {
   );
 
   // cron.schedule("0 8 * * *", () => {
-  cron.schedule("10,20,30,40,50 * * * * *", () => {
+  cron.schedule("*/10 * * * * *", () => {
     const date = new Date();
 
     let result = `*Доброе утро, кожаный мешок* 👾 \nСегодня ${date.getDate()} ${
