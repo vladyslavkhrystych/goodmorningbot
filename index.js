@@ -2,10 +2,6 @@ const { Telegraf } = require("telegraf");
 const cron = require("node-cron");
 const fetch = require("node-fetch");
 
-const openWeatherToken = "e4be0cd4a75788a1cee38dbb08118871";
-const tgBotToken = "1114449845:AAEru3S7ZO_sZssM9BQ_3FX9UgkMhwFlUv8";
-const dtfToken = `e10b25296d83657a4ccf1261f30df34f009d5e59de3682f6419c2233e773a190`;
-
 const monthesLocale = [
   "января",
   "февраля",
