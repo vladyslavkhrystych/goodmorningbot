@@ -1,6 +1,8 @@
 const { Telegraf } = require("telegraf");
 const cron = require("node-cron");
 const fetch = require("node-fetch");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const monthesLocale = [
   "января",
@@ -19,7 +21,7 @@ const monthesLocale = [
 
 const getWeather = async () => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=Kyiv&units=metric&appid=${openWeatherToken}`
+    `https://api.openweathermap.org/data/2.5/weather?q=Kyiv&units=metric&appid=${process.env.OPEN_WEATHER_TOKEN}`
   );
   const result = await response.json();
 
@@ -41,7 +43,7 @@ const getNews = async () => {
   const response = await fetch(
     `https://api.dtf.ru/v1.9/timeline/index/popular?count=3`,
     {
-      headers: { "X-Device-Token": dtfToken },
+      headers: { "X-Device-Token": process.env.DTF_TOKEN },
     }
   );
 
@@ -73,7 +75,9 @@ const prepareData = async () => {
   return result;
 };
 
-const bot = new Telegraf(tgBotToken);
+console.log(process.env);
+
+const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
 bot.start((ctx) => {
   ctx.reply(
