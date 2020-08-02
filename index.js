@@ -75,8 +75,6 @@ const prepareData = async () => {
   return result;
 };
 
-console.log(process.env);
-
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
 bot.start((ctx) => {
@@ -84,11 +82,11 @@ bot.start((ctx) => {
     "Привет, каждый день в 8 утра я буду присылать тебе три главных новости и прогноз погоды на сегодня. "
   );
 
-  cron.schedule("0 8 * * *", async () => {
-    // cron.schedule("*/10 * * * * *", async () => {
-    const message = await prepareData();
+  const cronTiming =
+    process.env.MODE === "development" ? "*/10 * * * * *" : "0 8 * * *";
 
-    console.log(message);
+  cron.schedule(cronTiming, async () => {
+    const message = await prepareData();
 
     ctx.replyWithMarkdown(message);
   });
