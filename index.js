@@ -26,13 +26,13 @@ const getWeather = async () => {
   const result = await response.json();
 
   const message =
-    "*Погода*\n" +
+    "🧐 *Погода* " +
     result.weather[0].description +
-    "\nТемпература: " +
+    "\n🌡 Температура: " +
     Math.floor(result.main.temp) +
-    "\nОщущается как: " +
+    "\n🤖 Ощущается как: " +
     Math.floor(result.main.feels_like) +
-    "\nВлажность: " +
+    "\n🐳 Влажность: " +
     result.main.humidity +
     "%\n";
 
@@ -64,10 +64,10 @@ const prepareData = async () => {
 
   result += weather;
 
-  let newsStr = "\nА вот и лучшие материалы с ДТФ на утро: \n";
+  let newsStr = "\nА вот и лучшие материалы с ДТФ на утро:";
 
   news.forEach((item) => {
-    newsStr += `\n[${item.title || "Нет тайтла"}](${item.url})`;
+    newsStr += `\n\n🔹️[${item.title || "Нет тайтла"}](${item.url})`;
   });
 
   result += newsStr;
